@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Meridian — Specialty Coffee, Coming Soon">
+  <main class="min-h-screen flex items-center justify-center px-6">
+    <div class="text-center">
+      <div class="uppercase tracking-[0.3em] text-xs font-mono text-[var(--color-muted)] mb-6">Meridian · est. 2026</div>
+      <h1 class="font-serif italic text-5xl sm:text-7xl leading-[0.95] mb-8">
+        <span class="inline-block animate-pulse">Building something</span><br/>worth waking up for.
+      </h1>
+      <p class="text-[var(--color-muted)] font-mono text-sm uppercase tracking-widest">Coming soon</p>
+    </div>
+  </main>
+</Base>
+<style>
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }
+  .animate-pulse { animation: pulse 2.4s ease-in-out infinite; }
+</style>

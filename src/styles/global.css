@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e0e0c;
+  --color-bone: #f3efe7;
+  --color-terracotta: #b7553a;
+  --color-muted: #8b857a;
+  --font-serif: "Fraunces", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html, body {
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color-terracotta); color: var(--color-bone); }
