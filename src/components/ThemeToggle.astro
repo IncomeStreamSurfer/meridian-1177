@@ -1,0 +1,51 @@
+---
+// Editorial light/dark toggle. Persists preference in localStorage.
+---
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle color theme"
+  class="fixed top-5 right-5 z-50 h-9 w-9 flex items-center justify-center rounded-full border border-[var(--color-ink)]/20 bg-[var(--color-bone)]/60 backdrop-blur hover:border-[var(--color-ink)]/50 transition"
+>
+  <svg data-icon="sun" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+  </svg>
+  <svg data-icon="moon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+</button>
+
+<script is:inline>
+  (function(){
+    const key = 'meridian-theme';
+    const root = document.documentElement;
+    const saved = localStorage.getItem(key);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (prefersDark ? 'dark' : 'light');
+    root.setAttribute('data-theme', initial);
+  })();
+</script>
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const sun = btn?.querySelector('[data-icon="sun"]') as SVGElement | null;
+  const moon = btn?.querySelector('[data-icon="moon"]') as SVGElement | null;
+  const root = document.documentElement;
+
+  function sync() {
+    const t = root.getAttribute('data-theme') || 'light';
+    if (sun && moon) {
+      sun.classList.toggle('hidden', t === 'dark');
+      moon.classList.toggle('hidden', t !== 'dark');
+    }
+  }
+  sync();
+
+  btn?.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('meridian-theme', next);
+    sync();
+  });
+</script>

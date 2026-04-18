@@ -1,42 +1,72 @@
 ---
 import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
 export interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 const {
   title = 'Meridian — Specialty Coffee, Coming Soon',
-  description = 'Meridian is a specialty coffee brand built around the first cup of the day. Join the list for launch.',
+  description = 'Meridian is a specialty coffee project built around the first cup of the day. Single-origin, small-batch roasted. Join the list for launch.',
+  ogImage,
 } = Astro.props;
+
 const site = Astro.site?.toString() ?? 'https://meridian-1177.vercel.app';
 const canonical = new URL(Astro.url.pathname, site).toString();
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Meridian',
+  url: site,
+  description,
+  foundingDate: '2026',
+  slogan: 'The first cup of the day deserves more intention.',
+  sameAs: [],
+};
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Meridian',
+  url: site,
+  description,
+};
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0e0c" media="(prefers-color-scheme: dark)" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Meridian" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☕%3C/text%3E%3C/svg%3E" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='92'%3E☕%3C/text%3E%3C/svg%3E" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'Meridian',
-      url: site,
-      description,
-      sameAs: [],
-    })} />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
   </head>
   <body>
+    <ThemeToggle />
     <slot />
   </body>
 </html>

@@ -1,18 +1,213 @@
 ---
 import Base from '../layouts/Base.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+
+const originNotes = [
+  {
+    region: 'Huila, Colombia',
+    varietal: 'Pink Bourbon',
+    process: 'Washed',
+    notes: 'Bergamot · White peach · Honeysuckle',
+  },
+  {
+    region: 'Sidamo, Ethiopia',
+    varietal: 'Heirloom',
+    process: 'Natural',
+    notes: 'Blueberry skin · Jasmine · Cocoa nib',
+  },
+  {
+    region: 'Nariño, Colombia',
+    varietal: 'Caturra',
+    process: 'Anaerobic',
+    notes: 'Cherry cola · Brown butter · Cane sugar',
+  },
+];
+
+const principles = [
+  {
+    n: '01',
+    title: 'Small lots, fresh roasts',
+    body: 'We roast in small batches the day your order ships. Nothing sits on a shelf.',
+  },
+  {
+    n: '02',
+    title: 'Transparent sourcing',
+    body: 'Every bag names the farm, the elevation, and what we paid. No ambiguity.',
+  },
+  {
+    n: '03',
+    title: 'Made for morning',
+    body: 'Profiles built for clarity at first light — filter-forward, never bitter.',
+  },
+];
 ---
-<Base title="Meridian — Specialty Coffee, Coming Soon">
-  <main class="min-h-screen flex items-center justify-center px-6">
-    <div class="text-center">
-      <div class="uppercase tracking-[0.3em] text-xs font-mono text-[var(--color-muted)] mb-6">Meridian · est. 2026</div>
-      <h1 class="font-serif italic text-5xl sm:text-7xl leading-[0.95] mb-8">
-        <span class="inline-block animate-pulse">Building something</span><br/>worth waking up for.
+<Base>
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between">
+    <a href="/" class="mono text-xs uppercase tracking-[0.35em]">Meridian</a>
+    <nav class="hidden sm:flex gap-7 mono text-xs uppercase tracking-[0.3em] muted">
+      <a href="#story" class="hover:text-[var(--color-fg)] transition">Story</a>
+      <a href="#origins" class="hover:text-[var(--color-fg)] transition">Origins</a>
+      <a href="#join" class="hover:text-[var(--color-fg)] transition">Join</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative min-h-[100svh] flex flex-col justify-center px-6 sm:px-10 pt-28 pb-20 grain overflow-hidden">
+    <div class="mx-auto max-w-5xl w-full">
+      <div class="eyebrow mb-6">Coming 2026 · Specialty Coffee</div>
+      <h1 class="h-display text-[12vw] sm:text-[8.5vw] lg:text-[7.5rem] mb-8">
+        The first cup<br/>
+        of the day deserves<br/>
+        <em>more intention.</em>
       </h1>
-      <p class="text-[var(--color-muted)] font-mono text-sm uppercase tracking-widest">Coming soon</p>
+      <div class="max-w-xl">
+        <p class="text-lg sm:text-xl muted serif leading-relaxed">
+          Meridian is a small specialty roaster launching later this year.
+          Single-origin coffees, roasted light for clarity,
+          delivered within forty-eight hours of the drum.
+        </p>
+      </div>
+
+      <div class="mt-12 flex items-center gap-6 flex-wrap">
+        <a href="#join" class="mono text-xs uppercase tracking-[0.3em] border-b border-current pb-1 hover:text-[var(--color-accent)] transition">Join the waitlist →</a>
+        <a href="#story" class="mono text-xs uppercase tracking-[0.3em] muted hover:text-[var(--color-fg)] transition">Read the story</a>
+      </div>
     </div>
-  </main>
+
+    <div class="absolute bottom-6 left-6 sm:left-10 mono text-[10px] uppercase tracking-[0.35em] muted">
+      N 00° 00′ · E 00° 00′ · The meridian line
+    </div>
+    <div class="absolute bottom-6 right-6 sm:right-10 mono text-[10px] uppercase tracking-[0.35em] muted hidden sm:block">
+      Scroll ↓
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="border-y rule py-5 overflow-hidden">
+    <div class="marquee-track flex gap-10 whitespace-nowrap mono text-xs uppercase tracking-[0.35em] muted">
+      {Array.from({ length: 2 }).map(() => (
+        <div class="flex gap-10 items-center">
+          <span>Single Origin</span><span>·</span>
+          <span>Small Batch</span><span>·</span>
+          <span>Light Roast</span><span>·</span>
+          <span>Shipped Within 48 Hours</span><span>·</span>
+          <span>Direct Trade</span><span>·</span>
+          <span>Est. 2026</span><span>·</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section id="story" class="px-6 sm:px-10 py-24 sm:py-36">
+    <div class="mx-auto max-w-5xl grid md:grid-cols-12 gap-10 md:gap-16">
+      <div class="md:col-span-4">
+        <div class="eyebrow mb-6">Chapter One</div>
+        <h2 class="h-display text-4xl sm:text-5xl">
+          A brand<br/>built on<br/><em>mornings.</em>
+        </h2>
+      </div>
+      <div class="md:col-span-8 space-y-6 text-lg leading-[1.75] serif max-w-prose">
+        <p>
+          Meridian began in a small kitchen in East London, at 6:14 AM, with a
+          dosing cup balanced on a cookbook and a grinder that took
+          three minutes to warm up. It wasn't a business idea. It was a habit
+          we started protecting.
+        </p>
+        <p>
+          Over months we tasted through a hundred and forty lots
+          from twelve countries. We found farms we wanted to stand behind,
+          and roasts we kept coming back to. We noticed that the best
+          cups of our lives had nothing to do with equipment, price, or rarity.
+          They had to do with <em>care</em> — a grower's, a roaster's, a friend's.
+        </p>
+        <p>
+          <strong class="font-medium">Meridian</strong> is the line we draw between the two halves of a day.
+          The coffee you drink before it arrives, and what you do after.
+          We want to be worth that ritual.
+        </p>
+        <p class="mono text-xs uppercase tracking-[0.3em] muted pt-4">— The founders</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="px-6 sm:px-10 py-24 sm:py-32 border-t rule">
+    <div class="mx-auto max-w-5xl">
+      <div class="divider mb-16 mono text-[10px] uppercase tracking-[0.4em]">Principles</div>
+      <div class="grid md:grid-cols-3 gap-12">
+        {principles.map((p) => (
+          <div class="space-y-4">
+            <div class="mono text-xs tracking-[0.3em] muted">{p.n}</div>
+            <h3 class="serif italic text-2xl leading-snug">{p.title}</h3>
+            <p class="muted leading-relaxed">{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGINS PREVIEW -->
+  <section id="origins" class="px-6 sm:px-10 py-24 sm:py-36 border-t rule">
+    <div class="mx-auto max-w-5xl">
+      <div class="flex items-end justify-between flex-wrap gap-6 mb-14">
+        <div>
+          <div class="eyebrow mb-4">Launch lineup</div>
+          <h2 class="h-display text-4xl sm:text-5xl">
+            Three origins<br/>to open with.
+          </h2>
+        </div>
+        <p class="muted max-w-sm serif leading-relaxed">
+          A tight, honest starting bench. More coffees rotate in as lots land.
+        </p>
+      </div>
+
+      <ol class="divide-y rule">
+        {originNotes.map((o, i) => (
+          <li class="grid md:grid-cols-12 gap-4 py-8">
+            <div class="md:col-span-1 mono text-xs muted">0{i + 1}</div>
+            <div class="md:col-span-4">
+              <div class="serif italic text-2xl">{o.region}</div>
+              <div class="mono text-[11px] tracking-[0.25em] uppercase muted mt-1">{o.varietal} · {o.process}</div>
+            </div>
+            <div class="md:col-span-7 serif text-lg leading-relaxed">
+              {o.notes}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- EMAIL CAPTURE -->
+  <section id="join" class="relative px-6 sm:px-10 py-28 sm:py-40 border-t rule overflow-hidden grain">
+    <div class="mx-auto max-w-3xl text-center">
+      <div class="eyebrow mb-6">Join the list</div>
+      <h2 class="h-display text-4xl sm:text-6xl mb-8">
+        Be first to the<br/><em>opening lots.</em>
+      </h2>
+      <p class="muted serif text-lg leading-relaxed max-w-xl mx-auto mb-12">
+        One quiet email when we open orders. No spam, no influencer drops,
+        no Monday motivation. Unsubscribe in a click.
+      </p>
+      <SubscribeForm />
+      <p class="mono text-[10px] tracking-[0.3em] uppercase muted mt-10">
+        Your email, and nothing else.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t rule px-6 sm:px-10 py-12">
+    <div class="mx-auto max-w-5xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="space-y-1">
+        <div class="serif italic text-xl">Meridian</div>
+        <div class="mono text-[10px] uppercase tracking-[0.35em] muted">Specialty coffee · est. 2026</div>
+      </div>
+      <div class="mono text-[10px] uppercase tracking-[0.3em] muted">
+        © {new Date().getFullYear()} Meridian Coffee Co.
+      </div>
+    </div>
+  </footer>
 </Base>
-<style>
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }
-  .animate-pulse { animation: pulse 2.4s ease-in-out infinite; }
-</style>

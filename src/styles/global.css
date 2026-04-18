@@ -9,11 +9,83 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-html, body {
-  background: var(--color-bone);
-  color: var(--color-ink);
-  font-family: var(--font-serif);
-  -webkit-font-smoothing: antialiased;
+:root {
+  --color-bg: var(--color-bone);
+  --color-fg: var(--color-ink);
+  --color-fg-muted: var(--color-muted);
+  --color-rule: rgba(14, 14, 12, 0.14);
+  --color-accent: var(--color-terracotta);
 }
 
-::selection { background: var(--color-terracotta); color: var(--color-bone); }
+:root[data-theme='dark'] {
+  --color-bg: #0e0e0c;
+  --color-fg: #f3efe7;
+  --color-fg-muted: #9b958a;
+  --color-rule: rgba(243, 239, 231, 0.16);
+  --color-accent: #d87758;
+}
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  transition: background 420ms ease, color 420ms ease;
+}
+
+body {
+  font-feature-settings: "liga", "kern", "ss01";
+}
+
+::selection { background: var(--color-accent); color: var(--color-bg); }
+
+/* Editorial utilities */
+.rule { border-color: var(--color-rule); }
+.muted { color: var(--color-fg-muted); }
+.serif { font-family: var(--font-serif); }
+.mono { font-family: var(--font-mono); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+.h-display {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+}
+.h-display em { font-style: italic; font-weight: 400; }
+
+.divider {
+  display: flex; align-items: center; gap: 1rem;
+  color: var(--color-fg-muted);
+}
+.divider::before, .divider::after {
+  content: ""; flex: 1; height: 1px;
+  background: var(--color-rule);
+}
+
+/* hero subtle grain */
+.grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.9'/></svg>");
+}
+:root[data-theme='dark'] .grain::after { mix-blend-mode: screen; opacity: 0.08; }
+
+/* marquee */
+@keyframes meridian-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: meridian-marquee 48s linear infinite;
+}
